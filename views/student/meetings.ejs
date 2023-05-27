@@ -1,0 +1,84 @@
+<% layout('layouts/SMBoilerplate') %>
+
+    <div class="row">
+        <div class="col-6">
+            <h3>Meetings</h3>
+        </div>
+        <div class="col-6">
+
+
+            <form action="/mentorship/student/<%=student._id%>/meetings" method="POST" class="validated-form"
+                novalidate>
+                <div class="d-flex">
+                    <select class="form-select mb-3" name="filter[completed]" aria-label="select">
+                        <option value="All" selected>All</option>
+                        <option value="true">Completed</option>
+                        <option value="false">Pending</option>
+                    </select>
+                    <button type="submit" class="btn btn-success  mx-2 mb-3">Filter</button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <hr>
+
+    <% for(let meeting of meetings) {%>
+        <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+            <div class="row">
+                <div class="card-body col-5 ">
+                    <div class="row">
+                        <div class="col-10">
+                            <h5 class="card-title">
+                                <%=meeting.agenda%>
+                            </h5>
+                        </div>
+                        <div class="col-1  text-muted m-2 p-2 small align-self-center">
+                            <% if(meeting.completed==true ) {%>
+                                <i class="fa-regular fa-circle-check fa-2xl" style="color: #32bb30;"></i>
+
+                                <%}else {%>
+
+                                    <i class="fa-regular fa-clock fa-2xl" style="color: #edc80c;"></i>
+                                    <%}%>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div class="col-2 border text-muted m-2 p-2 small align-self-center">
+                            <% var dateTime=new Date(meeting.date)%>
+                                <% var date=dateTime.getDate()%>
+                                    <% var month=dateTime.getMonth()%>
+                                        <% var year=dateTime.getFullYear()%>
+                                            Date: <%=date%>-<%=month+1%>-<%=year%>
+                        </div>
+                        <div class="col-2 border text-muted m-2 p-2 small align-self-center">
+                            <% var hours=dateTime.getHours()%>
+                                <% var minutes=dateTime.getMinutes()%>
+                                    Time: <%=hours%>:<%=minutes%>
+                        </div>
+
+                    </div>
+                    <div class="card-text">
+                        <form action="/mentorship/student/<%=student._id%>/meetings/<%=meeting._id%>?_method=PUT"
+                            method="POST">
+                            <textarea name="minutesOfMeeting" class="form-control" id="" cols="100"
+                                rows="5"><%=meeting.minutesOfMeeting%></textarea>
+                            <button type="submit" class="btn btn-success m-2">Save</button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+        <%}%>

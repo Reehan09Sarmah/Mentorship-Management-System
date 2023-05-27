@@ -4,6 +4,8 @@ const router = express.Router({ mergeParams: true })
 const Mentor = require('../models/Mentor')
 const Student = require('../models/Student')
 const Semester = require('../models/Semester')
+const Meeting = require('../models/Meeting')
+const { compile } = require('joi')
 
 //Student Pages and Functionalities
 
@@ -118,12 +120,7 @@ router.delete('/addSubjects/:semId/:subId', async (req, res) => {
     res.redirect(`/mentorship/student/${id}/addSubjects/${semId}`)
 })
 
-//see the messages given by the mentor
-router.get('/messages', async (req, res) => {
-    const { id } = req.params
-    const student = await Student.findById(id)
-    res.render('student/message', { student })
-})
+
 
 // to add marks to your subject
 router.put('/addSubjects/:semId/:subId', async (req, res) => {
@@ -179,6 +176,40 @@ router.post('/addSubjects/:subId', async (req, res) => {
 
 })
 
+//see the messages given by the mentor
+router.get('/meetings', async (req, res) => {
+    const { id } = req.params
+    const student = await Student.findById(id)
+    const meetings = await Meeting.find({ 'mentee': id })
+    res.render('student/meetings', { student, meetings })
+})
 
+//filter meetings
+router.post('/meetings', async (req, res) => {
+    const { id } = req.params
+    const filter = req.body.filter
+    const student = await Student.findById(id)
+    var meetings = null
+    if (filter.completed == 'All') {
+        meetings = await Meeting.find({ 'mentee': id })
+
+    } else {
+        meetings = await Meeting.find({ 'mentee': id, 'completed': filter.completed })
+    }
+
+    res.render('student/meetings', { student, meetings })
+
+})
+
+//finish a meeting
+router.put('/meetings/:meetId', async (req, res) => {
+    const { id, meetId } = req.params
+    const student = await Student.findById(id)
+    const minutesOfMeeting = req.body.minutesOfMeeting
+    const meeting = await Meeting.findByIdAndUpdate(meetId, { minutesOfMeeting: minutesOfMeeting, completed: true })
+    meeting.save()
+    res.redirect(`/mentorship/student/${id}/meetings`)
+
+})
 
 module.exports = router

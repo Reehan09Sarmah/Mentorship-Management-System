@@ -156,7 +156,7 @@ app.post('/mentorship/mentor/:id/mentees/meeting/:stdId', async (req, res) => {
     const student = await Student.findById(stdId)
     const meet = req.body.meeting
     console.log(meet);
-    const meeting = new Meeting({ 'mentor': id, 'mentee': stdId, 'agenda': meet.agenda, 'date': meet.date })
+    const meeting = new Meeting({ 'mentor': id, 'mentee': stdId, 'agenda': meet.agenda, 'date': meet.date, 'completed': false })
     meeting.save()
     req.flash('success', `Meeting set for ${student.name}`)
     res.redirect(`/mentorship/mentor/${id}/mentees`)
