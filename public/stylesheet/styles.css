@@ -1,0 +1,81 @@
+.nav-pills li a:hover {
+    background-color: rgb(66, 66, 243);
+}
+
+.nav-pills li a {
+    transition: background-color 200ms ease-in-out;
+}
+
+.sidenav {
+    position: fixed;
+}
+
+@media screen and (max-width: 550px) {
+
+    .card-title,
+    .card-text {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 387px) {
+
+    .card-title,
+    .card-text {
+        font-size: 0.7rem;
+    }
+
+}
+
+@media screen and (max-width: 413px) {
+
+    .card-body .card-link {
+        font-size: 10px;
+    }
+
+    .card-body .btn {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 1473px) {
+
+    .head {
+
+        font-size: 1.3em;
+        font-weight: 600;
+    }
+
+    .card-body .card-title {
+
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .card-body .card-text {
+
+        font-size: 1.1em;
+
+    }
+}
+
+@media screen and (max-width: 1473px) {
+
+    .head {
+
+        font-size: 1.3em;
+        font-weight: 600;
+    }
+
+    .card-body .card-text {
+
+        font-size: 1.1em;
+
+    }
+
+    .card-body .card-title {
+
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+}

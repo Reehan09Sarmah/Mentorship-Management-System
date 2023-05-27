@@ -1,0 +1,14 @@
+<% layout('layouts/loginBoiler') %>
+
+    <div class="row m-3">
+        <div class="col-lg-6 offset-3">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">
+                    <%= err.message %>
+                </h4>
+                <p>
+                    <%= err.stack %>
+                </p>
+            </div>
+        </div>
+    </div>

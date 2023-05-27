@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate') %>
+    <div>
+        <h3>Add/Edit Semester</h3>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto col-10 col-md-8 col-lg-6">
+                <form action="/mentorship/admin/addSemester/addSubjects" method="POST" class="validated-form"
+                    novalidate>
+                    <div class="mb-3">
+                        <label for="semester" class="form-label">Semester</label>
+                        <input type="number" class="form-control" id="semester" name="semester[sem]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department</label>
+                        <input type="text" class="form-control" id="department" name="semester[department]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-select mb-3 " name="semester[program]" aria-label="select" required>
+                            <option value="B.Tech">B.Tech</option>
+                            <option value="M.Tech">M.Tech</option>
+                            <option value="MCA">MCA</option>
+                        </select>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input type="checkbox" class="form-check-input" id="edit" name="semester[edit]">
+                        <label class="form-check-label" for="edit">Edit(edit an existing semester)
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Go</button>
+
+                </form>
+
+            </div>
+        </div>

@@ -1,0 +1,48 @@
+<% layout('layouts/mentorBoilerplate') %>
+
+
+    <div class="col-7 col-md-8 m-4">
+        <div class="row">
+            <div class="col-6">
+                <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                    <img class="card-img-top"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBl1Blk-Lch1VjDGsKOozVBEyHborb1_VcKtEJ6h_Fzpi49NHt_yLXvfTTP54OVhKYjCc&usqp=CAU"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= student.name %>
+                        </h5>
+                        <p class="card-text">
+                            <%= student.rollno %>
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted">
+                            Semester : <%= student.currentSemester %>
+                        </li>
+                        <li class="list-group-item text-muted">
+                            Program : <%= student.program %>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-6">
+                <h2>Semesters</h2>
+
+                <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                    <div class="card-body">
+                        <% for(let i=1;i<=student.currentSemester;i++) {%>
+                            <a class="btn btn-success m-1 "
+                                href="/mentorship/mentor/<%=mentor._id%>/mentees/<%=student._id%>/<%=i%>">Semester
+                                <%=i%>
+                            </a>
+
+                            <% } %>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>

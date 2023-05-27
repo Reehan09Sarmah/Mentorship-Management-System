@@ -1,0 +1,28 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="m-2">
+        <h2>Registered Mentors</h2>
+    </div>
+    <hr>
+    <div class="row">
+        <% for (let mentor of mentors) {%>
+
+            <div class="col-md-4 my-1">
+                <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=mentor.name%>
+                        </h5>
+                        <p class="card-text">
+                            <%=mentor.department%>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <a href="/mentorship/admin/mentors/<%=mentor._id%>"
+                            class="card-link btn btn-primary">Details</a>
+
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </div>

@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate') %>
+    <div class="">
+        <h2>
+            Registered Students <h5 class="lead">(Without Mentors)</h5>
+        </h2>
+    </div>
+    <hr>
+    <% for (let student of students) { if(!student.mentor){%>
+        <div class="row">
+            <div class="col-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=student.name%>
+                        </h5>
+                        <p class="card-text">
+                            <%=student.rollno%>
+                        </p>
+                    </div>
+                    <div class="card-body">
+
+                        <form action="/mentorship/admin/mentors/<%=mentor._id%>/students/<%=student._id%>"
+                            method="POST">
+                            <button class="btn btn-md btn-success">ADD</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%} } %>
+
+            <a class="btn btn-warning" href="/mentorship/admin/mentors/<%=mentor._id%>">Back to the Mentor</a>

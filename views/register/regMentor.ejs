@@ -1,0 +1,35 @@
+<% layout('layouts/loginBoiler') %>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto col-10 col-md-8 col-lg-6">
+                <form action="/mentorship/regMentor" method="POST" class="validated-form" novalidate>
+                    <div class="mb-3">
+                        <label for="mentorName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="mentorName" name="mentor[name]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mentorEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name="mentor[email]" id="mentorEmail"
+                            aria-describedby="emailHelp" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mentorDept" class="form-label">Department</label>
+                        <input type="text" class="form-control" name="mentor[department]" id="mentorDept" required>
+                    </div>
+                    <div class="valid-feedback">Looks Good!</div>
+                    <div class="mb-3">
+                        <label for="mentorPass" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="mentor[password]" id="mentorPass" required>
+                    </div>
+                    <div class="valid-feedback">Looks Good!</div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <a href="/mentorship/login" class="btn btn-primary">Login</a>
+
+                </form>
+            </div>
+        </div>
+    </div>

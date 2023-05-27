@@ -1,0 +1,35 @@
+<% layout('layouts/mentorBoilerplate') %>
+
+    <div class="col-7 col-md-8 m-4">
+        <h4>Welcome, <%=mentor.name%>
+        </h4>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                    <img class="card-img-top"
+                        src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc29yfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= mentor.name %>
+                        </h5>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted">
+                            Department: <%= mentor.department %>
+                        </li>
+                        <li class="list-group-item text-muted">
+                            Email: <%= mentor.email%>
+                        </li>
+
+                    </ul>
+                    <div class="card-body">
+                        <a href="" class="card-link btn btn-warning">Edit</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

@@ -1,0 +1,70 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <div class="col-sm-6 ">
+            <h2>Mentor</h2>
+            <hr>
+            <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                <img class="card-img-top"
+                    src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc29yfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= mentor.name %>
+                    </h5>
+                    <p class="card-text">
+                        Department : <b>
+                            <%= mentor.department %>
+                        </b>
+                        <br>
+                        Email: <b>
+                            <%= mentor.email %>
+                        </b>
+                    </p>
+                </div>
+                <div class="card-body">
+                    <a href="" class="card-link btn btn-warning">Edit</a>
+                    <a href="/mentorship/admin/mentors/<%=mentor._id%>/students"
+                        class="card-link btn btn-primary m-2">Add
+                        Mentees</a>
+                    <form class="d-inline" action="/mentorship/admin/mentors/<%=mentor._id%>?_method=DELETE"
+                        method="POST">
+                        <button class="btn btn-danger">DELETE</button>
+                    </form>
+                </div>
+                <!-- <div class="card-footer text-muted bg-white">
+                </div> -->
+                <a class="btn btn-secondary" href="/mentorship/admin/mentors">Back to Mentors</a>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <% if (mentor.mentees.length) {%>
+                <h2>Current Mentees</h2>
+                <% for(let mentee of mentor.mentees) {%>
+                    <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= mentee.name %>
+                            </h5>
+                            <details class="mb-3">
+                                <b> Program: </b>
+                                <%=mentee.program%> <br>
+                                    <b>Roll Number:</b>
+                                    <%=mentee.rollno%>
+                                        <br>
+                                        <b>Semester:</b>
+                                        <%=mentee.currentSemester%>
+                            </details>
+                            <form
+                                action="/mentorship/admin/mentors/<%=mentor._id%>/students/<%=mentee._id%>?_method=DELETE"
+                                method="POST">
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <% } %>
+        </div>
+        <%}%>
+    </div>

@@ -1,0 +1,111 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-5">
+            <h3>Add/Edit Courses</h3>
+        </div>
+        <div class="col-7">
+            <div class="row">
+                <div class="col-3 border text-muted m-2 p-2 small align-self-center">
+                    Semester:
+                    <%=semester.semNo%>
+
+                </div>
+                <div class="col-3 border text-muted  m-2 p-2 small align-self-center">
+                    Program:
+                    <%=semester.program%>
+
+                </div>
+                <div class="col-3 border text-muted m-2 p-2 small align-self-center">
+                    Department:
+                    <%=semester.department%>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <form action="/mentorship/admin/addSemester/addSubjects/<%=semester._id%>" method="POST"
+                    class="validated-form" novalidate>
+                    <div class="mb-3">
+                        <label for="courseCode" class="form-label">Course Code</label>
+                        <input type="text" class="form-control" id="courseCode" name="subject[subcode]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courseName" class="form-label">Course Name</label>
+                        <input type="text" class="form-control" id="courseName" name="subject[subName]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courseCredit" class="form-label">Total Credit</label>
+                        <input type="number" class="form-control" id="courseCredit" name="subject[credit]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courseName" class="form-label">Lab Credit</label>
+                        <input type="number" class="form-control" id="courseName" name="subject[labCredit]" required>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courseType" class="form-label">Course Type</label>
+                        <select class="form-select mb-3 " id="courseType" name="subject[courseType]" aria-label="select"
+                            required>
+                            <option selected>Course Type</option>
+                            <option value="C">Core</option>
+                            <option value="DE">Departmet Elective</option>
+                            <option value="OE">Open Elective</option>
+                        </select>
+                        <div class="valid-feedback">Looks Good!</div>
+                    </div>
+                    <button type="submit" class="btn btn-success m-2">Add the Subject</button>
+                    <a href="/mentorship/admin/addSemester" class="btn btn-primary">Add Semester</a>
+                </form>
+
+            </div>
+            <div class="col-6">
+                <h2>Subjects in Semester: <%=semester.semNo%>
+                </h2>
+                <% for(let subject of semester.subjects) {%>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Title: <%=subject.subName%>
+                            </h5>
+                            <p class="card-text lead">Code:<%=subject.subcode%>
+                            </p>
+                            <details class="mb-2 card-text lead">
+                                <ul class="list-unstyled">
+                                    <li>Credit: <%=subject.credit%>
+                                    </li>
+                                    <li>Lab Credit: <%=subject.labCredit%>
+                                    </li>
+                                    <li>Type:
+                                        <% if(subject.courseType=='C' ) {%>
+                                            Core
+                                            <%}else if(subject.courseType=='DE' ) {%>
+                                                Department Elective
+                                                <%}else if(subject.courseType=='OE' ) {%>
+                                                    Open Elective
+                                                    <%}%>
+                                    </li>
+                                </ul>
+
+                                </ul>
+                            </details>
+                            <form
+                                action="/mentorship/admin/addSemester/addSubjects/<%=semester._id%>/<%=subject._id%>?_method=DELETE"
+                                method="POST">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% } %>
+
+
+            </div>
+        </div>
+    </div>
