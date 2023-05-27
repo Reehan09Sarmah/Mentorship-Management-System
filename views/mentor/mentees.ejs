@@ -1,8 +1,8 @@
 <% layout('layouts/mentorBoilerplate') %>
 
-    <div class="col-7 col-md-8 m-4">
+    <div class="col-6 col-md-8 m-4">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 menteeHead">
                 <% if(program=='All' ){ %>
                     <h2>Registered Students</h2>
                     <%}else { %>
@@ -33,7 +33,7 @@
         <div class="row">
             <% for (let student of studentFilter) {%>
 
-                <div class="col-md-4 my-1">
+                <div class="col-md-6 my-1">
                     <div class="card shadow-sm p-2 mb-3 bg-body rounded">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -50,13 +50,56 @@
 
                             </details>
                         </div>
-                        <div class="card-body d-flex">
+                        <div class="d-flex">
                             <a href="/mentorship/mentor/<%=mentor._id%>/mentees/<%=student._id%>"
-                                class="card-link btn btn-primary">Details</a>
-                            <a href="#" class="card-link btn btn-primary">Set Meeting</a>
-                            <a href="#" class="card-link btn btn-primary">Meetings</a>
-
+                                class="card-link btn btn-primary m-2">Details</a>
+                            <button type="button" class="btn btn-primary  m-2" data-bs-toggle="modal"
+                                data-bs-target="#setMeeting<%=student.name.replace(/\s/g, "")%>">
+                                Set Meeting
+                            </button>
+                            <button class="btn btn-primary m-2">Meetings</button>
                         </div>
+
+                        <!-- Modal for setting meeting -->
+                        <div class="modal fade" id="setMeeting<%=student.name.replace(/\s/g, "")%>" tabindex="-1"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="subjectName">
+                                            <small>
+                                                <%=student.name%>
+                                            </small>
+
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/mentorship/student//addSubjects/" method="POST"
+                                            class="validated-form" novalidate>
+                                            <div class="mb-3">
+                                                <label for="date" class="form-label lead">Date
+                                                </label>
+                                                <input type="date" class="form-control" id="date" name="attend[total]"
+                                                    required>
+                                                <div class="valid-feedback">Looks Good!</div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="form-label lead">Time</label>
+                                                <input type="time" class="form-control" name="attend[attended]"
+                                                    id="time" required>
+                                                <div class="valid-feedback">Looks Good!</div>
+                                            </div>
+                                            <button type="submit" class="att btn btn-primary">Save
+                                                changes</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <% } %>

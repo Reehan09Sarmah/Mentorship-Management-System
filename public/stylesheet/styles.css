@@ -38,7 +38,7 @@
     }
 }
 
-@media screen and (min-width: 1473px) {
+@media screen and (min-width: 1482px) {
 
     .head {
 
@@ -48,18 +48,23 @@
 
     .card-body .card-title {
 
-        font-size: 1.2em;
+        font-size: 1.3em;
         font-weight: 600;
     }
 
     .card-body .card-text {
 
-        font-size: 1.1em;
+        font-size: 0.9em;
 
     }
 }
 
-@media screen and (max-width: 1473px) {
+@media screen and (max-width: 1482px) {
+
+    #dashName {
+
+        font-size: 1em;
+    }
 
     .head {
 
@@ -69,8 +74,12 @@
 
     .card-body .card-text {
 
-        font-size: 1.1em;
+        font-size: 1.0em;
 
+    }
+
+    .card .btn {
+        font-size: 0.7em;
     }
 
     .card-body .card-title {
@@ -78,4 +87,65 @@
         font-size: 1.2em;
         font-weight: 600;
     }
+
+    .subject h2 {
+        font-size: 1.2em;
+    }
+
+    #subTitle {
+        font-size: 1em;
+    }
+
+    #subCode {
+        font-size: 0.8em;
+    }
+
+    #courseDetails {
+        font-size: 0.7em;
+    }
+
+
+}
+
+@media screen and (max-width: 1280px) {
+    .card .btn {
+        font-size: 0.5em;
+    }
+
+    .card-body .card-title {
+
+        font-size: 1.2em;
+    }
+
+}
+
+@media screen and (max-width: 1136px) {
+    .card .btn {
+        font-size: 0.6em;
+    }
+
+    .card-body .card-title {
+
+        font-size: 1.0em;
+    }
+
+}
+
+@media screen and (max-width: 1136px) {
+    .card .btn {
+        font-size: 0.4em;
+    }
+
+    .card-body .card-title {
+
+        font-size: 1.0em;
+    }
+
+}
+
+@media screen and (min-width: 995px) {
+    .menteeHead h2 {
+        font-size: 1.5em;
+    }
+
 }

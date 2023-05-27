@@ -5,19 +5,20 @@
         </div>
         <div class="col-7">
             <div class="row">
-                <div class="col-3 border text-muted m-2 p-2 small align-self-center">
-                    Semester:
-                    <%=semester.semNo%>
 
-                </div>
-                <div class="col-3 border text-muted  m-2 p-2 small align-self-center">
+                <div class="col-4 border text-muted  m-2 p-2 small align-self-center">
                     Program:
                     <%=semester.program%>
 
                 </div>
-                <div class="col-3 border text-muted m-2 p-2 small align-self-center">
-                    Department:
+                <div class="col-2 border text-muted m-2 p-2 small align-self-center">
+
                     <%=semester.department%>
+
+                </div>
+                <div class="col-3 border text-muted m-2 p-2 small align-self-center">
+                    Semester:
+                    <%=semester.semNo%>
 
                 </div>
             </div>
@@ -28,7 +29,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 subForm">
                 <form action="/mentorship/admin/addSemester/addSubjects/<%=semester._id%>" method="POST"
                     class="validated-form" novalidate>
                     <div class="mb-3">
@@ -67,17 +68,17 @@
                 </form>
 
             </div>
-            <div class="col-6">
+            <div class="col-6 subject">
                 <h2>Subjects in Semester: <%=semester.semNo%>
                 </h2>
                 <% for(let subject of semester.subjects) {%>
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Title: <%=subject.subName%>
+                            <h5 class="card-title" id="subTitle">Title: <%=subject.subName%>
                             </h5>
-                            <p class="card-text lead">Code:<%=subject.subcode%>
+                            <p class="card-text lead" id="subCode">Code:<%=subject.subcode%>
                             </p>
-                            <details class="mb-2 card-text lead">
+                            <details class="mb-2 card-text lead" id="courseDetails">
                                 <ul class="list-unstyled">
                                     <li>Credit: <%=subject.credit%>
                                     </li>
