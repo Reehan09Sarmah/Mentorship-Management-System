@@ -1,85 +1,85 @@
 <% layout('layouts/mentorBoilerplate') %>
 
-    <div class="col-8 col-sm-9  m-4">
-        <% var count=0;%>
-            <%for(let subject of mentee.subjects) {%>
-                <% if(subject.semNo==sem) { %>
-                    <%count=count+ 1%>
-                        <div class="card shadow-sm p-2 mb-3 bg-body rounded">
-                            <div class="row">
-                                <div class="card-body col-5 ">
-                                    <h5 class="card-title">
-                                        <%=subject.subName%>
-                                    </h5>
-                                    <p class="card-text">
-                                        <%=subject.subCode%>
-                                    </p>
-                                    <div class="col-4 border text-muted m-2 p-2 small align-self-center">
-                                        Semester: <%=subject.semNo%>
-                                    </div>
-                                    <div class="col-4 border text-muted m-2 p-2 small align-self-center">
-                                        Program: <%=mentee.program%>
-                                    </div>
 
+    <% var count=0;%>
+        <%for(let subject of mentee.subjects) {%>
+            <% if(subject.semNo==sem) { %>
+                <%count=count+ 1%>
+                    <div class="card shadow-sm p-2 mb-3 bg-body rounded">
+                        <div class="row">
+                            <div class="card-body col-5 ">
+                                <h5 class="card-title">
+                                    <%=subject.subName%>
+                                </h5>
+                                <p class="card-text">
+                                    <%=subject.subCode%>
+                                </p>
+                                <div class="col-4 border text-muted m-2 p-2 small align-self-center">
+                                    Semester: <%=subject.semNo%>
                                 </div>
-
-                                <div class="col-5 shadow-sm p-2 m-3 bg-body rounded">
-                                    <h4>Marks</h4>
-                                    <hr>
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            Sessional I: <%=subject.sess1%>(25)
-                                        </li>
-                                        <li>
-                                            Mid Term: <%=subject.midterm%>(40)
-                                        </li>
-                                        <li>
-                                            Sessional II: <%=subject.sess2%>(25)
-                                        </li>
-                                        <li>
-                                            End Term: <%=subject.endterm%>(60)
-                                        </li>
-                                        <li>
-                                            Grade: "<%=subject.grade%>"
-                                        </li>
-                                    </ul>
+                                <div class="col-4 border text-muted m-2 p-2 small align-self-center">
+                                    Program: <%=mentee.program%>
                                 </div>
 
                             </div>
 
-                            <div class="row m-2">
-                                <div class="col-2 text-muted ms-3 p-2 align-self-center">
-                                    Attendance:
-                                </div>
-                                <div class=" col-8 progress align-self-center ">
-                                    <div class="progress-bar progress-bar-<%=count%>  progress-bar-striped bg-success"
-                                        id="att" data-attend="<%=subject.attendancePercent%>" role="progressbar"
-                                        style="width: 0%;" aria-valuemin="0" aria-valuemax="100">
-                                        <%=subject.attendancePercent%>%
-                                    </div>
-
-                                </div>
+                            <div class="col-5 shadow-sm p-2 m-3 bg-body rounded">
+                                <h4>Marks</h4>
+                                <hr>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        Sessional I: <%=subject.sess1%>(25)
+                                    </li>
+                                    <li>
+                                        Mid Term: <%=subject.midterm%>(40)
+                                    </li>
+                                    <li>
+                                        Sessional II: <%=subject.sess2%>(25)
+                                    </li>
+                                    <li>
+                                        End Term: <%=subject.endterm%>(60)
+                                    </li>
+                                    <li>
+                                        Grade: "<%=subject.grade%>"
+                                    </li>
+                                </ul>
                             </div>
-
 
                         </div>
+
+                        <div class="row m-2">
+                            <div class="col-2 text-muted ms-3 p-2 align-self-center">
+                                Attendance:
+                            </div>
+                            <div class=" col-8 progress align-self-center ">
+                                <div class="progress-bar progress-bar-<%=count%>  progress-bar-striped bg-success"
+                                    id="att" data-attend="<%=subject.attendancePercent%>" role="progressbar"
+                                    style="width: 0%;" aria-valuemin="0" aria-valuemax="100">
+                                    <%=subject.attendancePercent%>%
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <% } %>
                         <% } %>
-                            <% } %>
-                                <div class="count" data-count="<%=count%>"></div>
-                                <!--To use the 'count' value inside script-->
+                            <div class="count" data-count="<%=count%>"></div>
+                            <!--To use the 'count' value inside script-->
 
-                                <a href="/mentorship/mentor/<%=mentor._id%>/mentees/<%=mentee._id%>"
-                                    class="btn btn-warning">Back to Student</a>
+                            <a href="/mentorship/mentor/<%=mentor._id%>/mentees/<%=mentee._id%>"
+                                class="btn btn-warning">Back to Student</a>
 
-    </div>
-    </div>
-    <!-- Get access to the attendance through data-attend attribute and use it to change width of progress bar-->
-    <script>
-        var count = document.querySelector('.count').dataset.count;//get number of documents to iterate through
-        for (let i = 1; i <= count; i++) {
-            var attend = document.querySelector(`.progress-bar-${i}`); //each progress bar given a numbered class
-            var per = attend.dataset.attend;//get the attendance of that particular document
-            attend.style["width"] = `${per}%`; //change the width
-            attend.style["transition"] = `width 2s ease-in-out`;
-        }
-    </script>
+                            </div>
+
+                            <!-- Get access to the attendance through data-attend attribute and use it to change width of progress bar-->
+                            <script>
+                                var count = document.querySelector('.count').dataset.count;//get number of documents to iterate through
+                                for (let i = 1; i <= count; i++) {
+                                    var attend = document.querySelector(`.progress-bar-${i}`); //each progress bar given a numbered class
+                                    var per = attend.dataset.attend;//get the attendance of that particular document
+                                    attend.style["width"] = `${per}%`; //change the width
+                                    attend.style["transition"] = `width 2s ease-in-out`;
+                                }
+                            </script>

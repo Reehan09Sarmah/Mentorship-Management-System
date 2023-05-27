@@ -11,6 +11,7 @@ const meetingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Student'
     },
+    agenda: String,
     minutesOfMeeting: String,
     date: Date,
     completed: Boolean

@@ -96,12 +96,17 @@ app.get('/mentorship/mentor/:id', async (req, res) => {
 app.get('/mentorship/mentor/:id/mentees', async (req, res) => {
     const { id } = req.params
     const program = ''
+    const meetings = await Meeting.find({ mentor: id })
     const mentor = await Mentor.findById(id).populate('mentees')
     var studentFilter = [] //using this as we need a filter to filter accordingly
+    var meetingFilter = []// to get the meetings details related with the mentor
     for (let mentee of mentor.mentees) {
         studentFilter.push(mentee)
     }
-    res.render('mentor/mentees', { studentFilter, mentor, program })
+    for (let meeting of meetings) {
+        meetingFilter.push(meeting)
+    }
+    res.render('mentor/mentees', { studentFilter, meetingFilter, mentor, program })
 
 })
 
@@ -145,6 +150,17 @@ app.get('/mentorship/mentor/:id/mentees/:mId/:sem', async (req, res) => {
     res.render('mentor/perform', { mentor, sem, mentee })
 })
 
+//to set meetings
+app.post('/mentorship/mentor/:id/mentees/meeting/:stdId', async (req, res) => {
+    const { id, stdId } = req.params
+    const student = await Student.findById(stdId)
+    const meet = req.body.meeting
+    console.log(meet);
+    const meeting = new Meeting({ 'mentor': id, 'mentee': stdId, 'agenda': meet.agenda, 'date': meet.date })
+    meeting.save()
+    req.flash('success', `Meeting set for ${student.name}`)
+    res.redirect(`/mentorship/mentor/${id}/mentees`)
+})
 
 
 
