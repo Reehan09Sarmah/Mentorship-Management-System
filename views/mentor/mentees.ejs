@@ -131,11 +131,25 @@
                                                             <% var date=dateTime.getDate()%>
                                                                 <% var month=dateTime.getMonth()%>
                                                                     <% var year=dateTime.getFullYear()%>
-                                                                        <div class="card-header">
-                                                                            Time: <%=hours%>:<%=minutes%>
-                                                                                    Date: <%=date%>
-                                                                                        <%=month+1%>
-                                                                                            <%=year%>
+                                                                        <div
+                                                                            class="card-header d-flex justify-content-between">
+                                                                            <div>
+                                                                                Time: <%=hours%>:<%=minutes%>
+                                                                                        Date: <%=date%>
+                                                                                            <%=month+1%>
+                                                                                                <%=year%>
+                                                                            </div>
+                                                                            <div>
+                                                                                <% if(meet.completed==true ) {%>
+                                                                                    <i class="fa-regular fa-circle-check fa-xl"
+                                                                                        style="color: #32bb30;"></i>
+
+                                                                                    <%}else {%>
+
+                                                                                        <i class="fa-regular fa-clock fa-xl"
+                                                                                            style="color: #edc80c;"></i>
+                                                                                        <%}%>
+                                                                            </div>
                                                                         </div>
                                                                         <div class="card-body">
                                                                             <h5 class="card-title">

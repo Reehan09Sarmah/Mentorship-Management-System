@@ -7,25 +7,9 @@ const catchAsync = require('./utils/catchAsync')
 const ExpressError = require('./utils/ExpressError')
 const session = require('express-session')
 const flash = require('connect-flash')
+const nodemailer = require('nodemailer')
+const { google } = require('googleapis')
 
-//Schemas
-const Mentor = require('./models/Mentor')
-const Student = require('./models/Student')
-const Semester = require('./models/Semester')
-const Meeting = require('./models/Meeting')
-
-
-
-mongoose.connect('mongodb://localhost:27017/MentorshipSystem', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
-const db = mongoose.connection
-db.on("error", console.error.bind(console, "connection error:"))
-db.once("open", () => {
-    console.log("Database Connected!")
-})
 
 const app = express()
 
@@ -38,14 +22,22 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method')) // to disguise methods like put or patch with post as post is allowed in form method
 app.use(express.static(path.join(__dirname, 'public')))
 
-//import routers
-const registerRoutes = require('./routes/registerRoutes')
-const adminRoutes = require('./routes/adminRoutes')
-const studentRoutes = require('./routes/studentRoutes')
 
 
+//MongoDB Connection
+mongoose.connect('mongodb://localhost:27017/MentorshipSystem', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
+const db = mongoose.connection
+db.on("error", console.error.bind(console, "connection error:"))
+db.once("open", () => {
+    console.log("Database Connected!")
+})
 
 
+//for flash messages
 const sessionConfig = {
     secret: 'thisisasecret',
     //below 2 are to remove deprecation warnings
@@ -67,6 +59,66 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error')
     next()
 })
+//flash messages end
+
+
+
+//Setting up for sending emails
+const CLIENT_ID = '58663431376-dvh2hcjb9krfaadc2epqcqbq0uensabt.apps.googleusercontent.com'
+const CLIENT_SECRET = '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'
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const REFRESH_TOKEN = '1//04IlbEwxP2IMsCgYIARAAGAQSNwF-L9Ir-9N2ACGZYSY_73lnKVy6Nf9-AYWFGpT3B4i9IsowqctuEwLuv-0cwaQGxx_afXOhTP4'
+
+
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+);
+
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+async function sendMail(sender, receiver, topic, message) {
+    try {
+        const accessToken = await oAuth2Client.getAccessToken();
+
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: 'reehansarmah8473@gmail.com', //authorised with OAuth2
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken,
+            },
+        });
+
+        const mailOptions = {
+            from: `${sender} <reehansarmah8473@gmail.com>`, //if authorised with OAuth2, then can send mail only
+            to: receiver,
+            subject: 'Meeting with Mentor',
+            text: message,
+            html: `<h3>Discussion: ${topic}</h3>
+                    <h4>${message}</h4>`,
+        };
+
+        const result = await transport.sendMail(mailOptions);
+        return result;
+    } catch (error) {
+        return error;
+    }
+}
+
+module.exports = { sendMail }
+
+
+//import routers
+const registerRoutes = require('./routes/registerRoutes')
+const adminRoutes = require('./routes/adminRoutes')
+const studentRoutes = require('./routes/studentRoutes')
+const mentorRoutes = require('./routes/mentorRoutes')
+
+
 
 
 
@@ -82,86 +134,7 @@ app.get('/mentorship/login', (req, res) => {
 app.use('/mentorship', registerRoutes)
 app.use('/mentorship/admin', adminRoutes)
 app.use('/mentorship/student/:id', studentRoutes)
-
-//Mentor Routes and Functionalities
-
-//mentor home
-app.get('/mentorship/mentor/:id', async (req, res) => {
-    const { id } = req.params
-    const mentor = await Mentor.findById(id)
-    res.render('mentor/mentorHome', { mentor })
-})
-
-//mentees of the mentor
-app.get('/mentorship/mentor/:id/mentees', async (req, res) => {
-    const { id } = req.params
-    const program = ''
-    const meetings = await Meeting.find({ mentor: id })
-    const mentor = await Mentor.findById(id).populate('mentees')
-    var studentFilter = [] //using this as we need a filter to filter accordingly
-    var meetingFilter = []// to get the meetings details related with the mentor
-    for (let mentee of mentor.mentees) {
-        studentFilter.push(mentee)
-    }
-    for (let meeting of meetings) {
-        meetingFilter.push(meeting)
-    }
-    res.render('mentor/mentees', { studentFilter, meetingFilter, mentor, program })
-
-})
-
-//filter the mentees according to program
-app.post('/mentorship/mentor/:id/mentees', async (req, res) => {
-    const { id } = req.params
-    const program = req.body.filter.program
-    var studentFilter = []
-    const mentor = await Mentor.findById(id).populate('mentees')
-    if (program == 'All') {
-        for (let mentee of mentor.mentees) {
-            studentFilter.push(mentee)
-        }
-    }
-    else {
-        for (let mentee of mentor.mentees) {
-            if (mentee.program == program) {
-                studentFilter.push(mentee)
-            }
-        }
-    }
-
-
-    res.render('mentor/mentees', { studentFilter, mentor, program })
-
-})
-
-//mentee details
-app.get('/mentorship/mentor/:id/mentees/:mId', async (req, res) => {
-    const { id, mId } = req.params
-    const mentor = await Mentor.findById(id)
-    const student = await Student.findById(mId)
-    res.render('mentor/mentee', { mentor, student })
-})
-
-//get the details of each semester
-app.get('/mentorship/mentor/:id/mentees/:mId/:sem', async (req, res) => {
-    const { id, mId, sem } = req.params
-    const mentor = await Mentor.findById(id)
-    const mentee = await Student.findById(mId)
-    res.render('mentor/perform', { mentor, sem, mentee })
-})
-
-//to set meetings
-app.post('/mentorship/mentor/:id/mentees/meeting/:stdId', async (req, res) => {
-    const { id, stdId } = req.params
-    const student = await Student.findById(stdId)
-    const meet = req.body.meeting
-    console.log(meet);
-    const meeting = new Meeting({ 'mentor': id, 'mentee': stdId, 'agenda': meet.agenda, 'date': meet.date, 'completed': false })
-    meeting.save()
-    req.flash('success', `Meeting set for ${student.name}`)
-    res.redirect(`/mentorship/mentor/${id}/mentees`)
-})
-
+app.use('/mentorship/mentor/:id', mentorRoutes)
 
 
 

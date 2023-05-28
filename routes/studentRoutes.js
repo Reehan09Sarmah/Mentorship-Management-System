@@ -208,6 +208,7 @@ router.put('/meetings/:meetId', async (req, res) => {
     const minutesOfMeeting = req.body.minutesOfMeeting
     const meeting = await Meeting.findByIdAndUpdate(meetId, { minutesOfMeeting: minutesOfMeeting, completed: true })
     meeting.save()
+    req.flash('success', 'Meeting Completed')
     res.redirect(`/mentorship/student/${id}/meetings`)
 
 })
