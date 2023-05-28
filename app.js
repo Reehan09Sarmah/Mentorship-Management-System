@@ -9,7 +9,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const nodemailer = require('nodemailer')
 const { google } = require('googleapis')
-
+require('dotenv').config()
 
 const app = express()
 
@@ -64,10 +64,10 @@ app.use((req, res, next) => {
 
 
 //Setting up for sending emails
-const CLIENT_ID = '58663431376-dvh2hcjb9krfaadc2epqcqbq0uensabt.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-const REFRESH_TOKEN = '1//04IlbEwxP2IMsCgYIARAAGAQSNwF-L9Ir-9N2ACGZYSY_73lnKVy6Nf9-AYWFGpT3B4i9IsowqctuEwLuv-0cwaQGxx_afXOhTP4'
+const CLIENT_ID = process.env.clientID
+const CLIENT_SECRET = process.env.clientSecret
+const REDIRECT_URI = process.env.redirectUri
+const REFRESH_TOKEN = process.env.refreshToken
 
 
 const oAuth2Client = new google.auth.OAuth2(
