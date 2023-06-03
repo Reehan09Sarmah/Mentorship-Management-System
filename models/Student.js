@@ -31,7 +31,7 @@ const studentSchema = new Schema({
     ],
     program: String,
     yearOfAdmission: Number,
-    
+
 })
 
 module.exports = mongoose.model('Student', studentSchema)

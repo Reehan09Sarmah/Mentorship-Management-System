@@ -158,8 +158,7 @@ router.post('/addSubjects/:subId', async (req, res) => {
     var { total, attended } = req.body.attend
     total = Number(total)
     attended = Number(attended)
-    const attendance = (attended / total) * 100
-    const attendPercent = Math.floor(attendance)
+    const attendPercent = ((attended / total) * 100).toFixed(2)
     var sem = null
 
     for (let subject of student.subjects) {
