@@ -16,10 +16,13 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-muted">
-                        Semester : <%= student.currentSemester %>
+                        Semester : <%= student.currentSemester %> |
+                            Program : <%= student.program %>
+
+
                     </li>
                     <li class="list-group-item text-muted">
-                        Program : <%= student.program %>
+                        Gsuite Id: <%=student.email%>
                     </li>
                 </ul>
                 <div class="card-body">

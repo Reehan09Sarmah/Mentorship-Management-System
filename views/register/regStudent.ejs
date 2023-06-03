@@ -1,67 +1,75 @@
 <% layout('layouts/loginBoiler') %>
 
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto col-10 col-md-8 col-lg-6">
-                <form action="/mentorship/regStudent" method="POST" class="validated-form" novalidate>
-                    <div class="mb-3">
-                        <label for="stdName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="stdName" name="student[name]" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="stdEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="student[email]" id="stdEmail"
-                            aria-describedby="emailHelp" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="stdDept" class="form-label">Department</label>
-                        <input type="text" class="form-control" name="student[department]" id="stdDept" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
 
 
-                    <div class="mb-3">
-                        <label for="stdRoll" class="form-label">Roll Number</label>
-                        <input type="text" class="form-control" name="student[rollno]" id="stdRoll" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="stdSem" class="form-label">Semester</label>
-                        <input type="number" class="form-control" name="student[currentSemester]" id="stdSem" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <select class="form-select mb-3 " name="student[program]" aria-label="select" required>
-                            <option selected>Program</option>
-                            <option value="B.Tech">B.Tech</option>
-                            <option value="M.Tech">M.Tech</option>
-                            <option value="MCA">MCA</option>
-                        </select>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="stdAdm" class="form-label">Year of Admission</label>
-                        <input type="number" class="form-control" name="student[yearOfAdmission]" id="stdAdm" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="stdPass" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="student[password]" id="stdPass" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    <a href="/mentorship/login" class="btn btn-primary">Login</a>
-
-                </form>
+    <div class="col-md-6 col-lg-6 col-6  m-3 p-2">
+        <h3>Student Register</h3>
+        <hr>
+        <form action="/mentorship/regStudent" method="POST" class="validated-form form-control-sm" novalidate>
+            <div class="mb-3">
+                <label for="stdName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="stdName" name="student[name]" required>
+                <div class="valid-feedback">Looks Good!</div>
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="stdEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="student[email]" id="stdEmail"
+                    aria-describedby="emailHelp" required>
+                <div class="valid-feedback">Looks Good!</div>
+            </div>
+            <div class="d-flex mb-3">
+                <div class="me-1">
+                    <label for="stdDept" class="form-label">Department</label>
+                    <input type="text" class="form-control" name="student[department]" id="stdDept" required>
+                    <div class="valid-feedback">Looks Good!</div>
+                </div>
+
+
+                <div class="ms-1">
+                    <label for="stdRoll" class="form-label">Roll Number</label>
+                    <input type="text" class="form-control" name="student[rollno]" id="stdRoll" required>
+                    <div class="valid-feedback">Looks Good!</div>
+                </div>
+            </div>
+
+
+            <div class="d-flex mb-3">
+
+                <div class="me-1">
+                    <label for="stdSem" class="form-label">Semester</label>
+                    <input type="number" class="form-control" name="student[currentSemester]" id="stdSem" required>
+                    <div class="valid-feedback">Looks Good!</div>
+                </div>
+
+
+                <div class="ms-1 mt-4">
+                    <select class="form-select mt-1" name="student[program]" aria-label="select" required>
+                        <option selected>Program</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="M.Tech">M.Tech</option>
+                        <option value="MCA">MCA</option>
+                    </select>
+                    <div class="valid-feedback">Looks Good!</div>
+                </div>
+            </div>
+
+            <div class="d-flex mb-3">
+                <div class="me-1">
+                    <label for="stdAdm" class="form-label">Year of Admission</label>
+                    <input type="number" class="form-control " name="student[yearOfAdmission]" id="stdAdm" required>
+                    <div class="valid-feedback">Looks Good!</div>
+                </div>
+                <div class="ms-1">
+                    <label for="stdPass" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="student[password]" id="stdPass" required>
+                    <div class="valid-feedback">Looks Good!</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+            <div class="my-2">
+                Already Registered?
+                <a href="/mentorship/login" class="">Login</a>
+            </div>
+        </form>
     </div>

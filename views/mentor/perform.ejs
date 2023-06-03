@@ -1,6 +1,9 @@
 <% layout('layouts/mentorBoilerplate') %>
 
-
+    <h3>
+        <%=mentee.name%>
+    </h3>
+    <hr>
     <% var count=0;%>
         <%for(let subject of mentee.subjects) {%>
             <% if(subject.semNo==sem) { %>

@@ -83,7 +83,7 @@
                                     <form action="/mentorship/mentor/<%=mentor._id%>/mentees/meeting/<%=student._id%>"
                                         method="POST" class="validated-form" novalidate>
                                         <div class="mb-3">
-                                            <label for="date" class="form-label lead">Date
+                                            <label for="date" class="form-label lead">Date & Time
                                             </label>
                                             <input type="datetime-local" class="form-control" id="date"
                                                 name="meeting[date]" required>
@@ -135,8 +135,8 @@
                                                                             class="card-header d-flex justify-content-between">
                                                                             <div>
                                                                                 Time: <%=hours%>:<%=minutes%>
-                                                                                        Date: <%=date%>
-                                                                                            <%=month+1%>
+                                                                                        Date: <%=date%>/
+                                                                                            <%=month+1%>/
                                                                                                 <%=year%>
                                                                             </div>
                                                                             <div>
@@ -157,6 +157,12 @@
                                                                             </h5>
                                                                             <p class="card-text lead">
                                                                                 <%=meet.minutesOfMeeting%>
+                                                                                    <form
+                                                                                        action="/mentorship/mentor/<%=mentor._id%>/mentees/meeting/<%=student._id%>?_method=DELETE"
+                                                                                        method="POST">
+                                                                                        <button type="submit"
+                                                                                            class="att btn btn-danger">Delete</button>
+                                                                                    </form>
                                                                             </p>
 
 

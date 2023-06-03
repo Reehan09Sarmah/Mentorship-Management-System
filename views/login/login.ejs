@@ -1,42 +1,44 @@
 <% layout('layouts/loginBoiler') %>
 
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto col-10 col-md-8 col-lg-6">
-                <form action="/mentorship/loginMentor" method="POST" class="validated-form" novalidate>
-                    <select class="form-select mb-3 " name="login[type]" aria-label="select">
-                        <option selected>Login As</option>
+    <div class="col-6 col-md-6 col-lg-6  m-4 ">
+        <form action="/mentorship/loginMentor" method="POST" class="validated-form" novalidate>
+            <div class="row m-2 p-2">
+                <div class="col-2 text-center">
+                    <h4>Login </h4>
+                </div>
+                <div class="col-6">
+                    <select class="form-select mb-3 bg-success text-white" id="loginAs" name="login[type]"
+                        aria-label="select">
                         <option value="Admin">Admin</option>
-                        <option value="Mentor">Mentor</option>
+                        <option value="Mentor" selected>Mentor</option>
                         <option value="Student">Student</option>
                     </select>
-                    <div class="mb-3">
-                        <label for="loginEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="login[email]" id="loginEmail"
-                            aria-describedby="emailHelp" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="loginPass" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="login[password]" id="loginPass" required>
-                    </div>
-                    <div class="valid-feedback">Looks Good!</div>
-                    <button type="submit" class="btn btn-success mb-3">Sign In</button>
-
-                    <div class="dropdown mb-3">
-                        Not Registered?
-                        <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Register As
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="/mentorship/regAdmin">Admin</a></li>
-                            <li><a class="dropdown-item" href="/mentorship/regMentor">Mentor</a></li>
-                            <li><a class="dropdown-item" href="/mentorship/regStudent">Student</a></li>
-                        </ul>
-                    </div>
-
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="loginEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="login[email]" id="loginEmail"
+                    aria-describedby="emailHelp" required>
+                <div class="valid-feedback">Looks Good!</div>
+            </div>
+            <div class="mb-3">
+                <label for="loginPass" class="form-label">Password</label>
+                <input type="password" class="form-control" name="login[password]" id="loginPass" required>
+            </div>
+            <div class="valid-feedback">Looks Good!</div>
+            <button type="submit" class="btn btn-success mb-3">Sign In</button>
+
+            <div class="dropdown mb-3">
+                Not Registered?
+                <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Register As
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/mentorship/regMentor">Mentor</a></li>
+                    <li><a class="dropdown-item" href="/mentorship/regStudent">Student</a></li>
+                </ul>
+            </div>
+
+        </form>
     </div>

@@ -1,35 +1,39 @@
 <% layout('layouts/loginBoiler') %>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto col-10 col-md-8 col-lg-6">
-                <form action="/mentorship/regMentor" method="POST" class="validated-form" novalidate>
-                    <div class="mb-3">
-                        <label for="mentorName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="mentorName" name="mentor[name]" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="mentorEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="mentor[email]" id="mentorEmail"
-                            aria-describedby="emailHelp" required>
-                        <div class="valid-feedback">Looks Good!</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="mentorDept" class="form-label">Department</label>
-                        <input type="text" class="form-control" name="mentor[department]" id="mentorDept" required>
-                    </div>
-                    <div class="valid-feedback">Looks Good!</div>
-                    <div class="mb-3">
-                        <label for="mentorPass" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="mentor[password]" id="mentorPass" required>
-                    </div>
-                    <div class="valid-feedback">Looks Good!</div>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    <a href="/mentorship/login" class="btn btn-primary">Login</a>
 
-                </form>
-            </div>
+    <div class="col-6 col-md-6 col-lg-6 m-3 p-3">
+        <div class="my-2">
+            <h4>Mentor Register</h4>
+            <hr>
         </div>
+        <form action="/mentorship/regMentor" method="POST" class="validated-form form-control-sm" novalidate>
+            <div class="mb-3">
+                <label for="mentorName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="mentorName" name="mentor[name]" required>
+                <div class="valid-feedback">Looks Good!</div>
+            </div>
+            <div class="mb-3">
+                <label for="mentorEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="mentor[email]" id="mentorEmail"
+                    aria-describedby="emailHelp" required>
+                <div class="valid-feedback">Looks Good!</div>
+            </div>
+            <div class="mb-3">
+                <label for="mentorDept" class="form-label">Department</label>
+                <input type="text" class="form-control" name="mentor[department]" id="mentorDept" required>
+            </div>
+            <div class="valid-feedback">Looks Good!</div>
+            <div class="mb-3">
+                <label for="mentorPass" class="form-label">Password</label>
+                <input type="password" class="form-control" name="mentor[password]" id="mentorPass" required>
+            </div>
+            <div class="valid-feedback">Looks Good!</div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <div class="my-2">
+                Already Registered?
+                <a href="/mentorship/login" class="">Login</a>
+            </div>
+
+        </form>
     </div>

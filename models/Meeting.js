@@ -16,7 +16,6 @@ const meetingSchema = new Schema({
     date: Date,
     completed: Boolean
 
-
 })
 
 module.exports = mongoose.model('Meeting', meetingSchema)

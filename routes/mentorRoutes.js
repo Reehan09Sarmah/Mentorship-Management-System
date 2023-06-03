@@ -86,6 +86,7 @@ router.get('/mentees/:mId/:sem', async (req, res) => {
 //to set meetings
 router.post('/mentees/meeting/:stdId', async (req, res) => {
     const { id, stdId } = req.params
+    let n = 0
     const student = await Student.findById(stdId)
     const mentor = await Mentor.findById(id)
     const meet = req.body.meeting
@@ -121,5 +122,14 @@ async function dates(theDate) {
 
     return { hour, minute, day, month, year, amOrpm }
 }
+
+// //to delete a meeting
+// router.delete('/mentees/meeting/:stdId', async (req, res) => {
+//     const { id, stdId } = req.params
+//     const meet = await Meeting.findOne({ 'mentor': id, 'mentee': stdId })
+//     console.log(meet);
+
+
+// })
 
 module.exports = router
