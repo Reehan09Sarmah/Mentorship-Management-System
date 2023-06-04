@@ -176,13 +176,22 @@ router.post('/addSemester/addSubjects/:id', async (req, res) => {
     const { id } = req.params
     const subject = req.body.subject
     const semester = await Semester.findById(id)
-
+    const allSemester = await Semester.find({})
+    //check in all semester if that sub code exists
     var flag = 0
-    for (let sub of semester.subjects) {
-        if (sub.subcode == (subject.subcode + " ")) {
-            flag = 1;
+    for (let sem of allSemester) {
+        for (let s of sem.subjects) {
+            console.log(s);
+            if (!(s.subcode == (subject.subcode + " "))) { //if equals then gives 0 
+                flag = 1;
+                break;
+            }
+            console.log(flag);
+        }
+        if (flag == 1) {
             break;
         }
+
     }
 
 
