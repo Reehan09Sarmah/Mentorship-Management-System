@@ -27,13 +27,35 @@
                     <a href="/mentorship/admin/mentors/<%=mentor._id%>/students"
                         class="card-link btn btn-primary m-2">Add
                         Mentees</a>
-                    <form class="d-inline" action="/mentorship/admin/mentors/<%=mentor._id%>?_method=DELETE"
-                        method="POST">
-                        <button class="btn btn-danger">DELETE</button>
-                    </form>
+                    <!-- Button trigger modal to delete -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#askDeleteMentor">
+                        Delete
+                    </button>
                 </div>
-                <!-- <div class="card-footer text-muted bg-white">
-                </div> -->
+                <!-- Modal -->
+                <div class="modal fade" id="askDeleteMentor" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete <%=mentor.name%> data?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this data completely from database?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form class="d-inline" action="/mentorship/admin/mentors/<%=mentor._id%>?_method=DELETE"
+                                    method="POST">
+                                    <button class="btn btn-danger">DELETE</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <a class="btn btn-secondary" href="/mentorship/admin/mentors">Back to Mentors</a>
 
             </div>
@@ -61,6 +83,7 @@
                                 method="POST">
                                 <button class="btn btn-sm btn-danger">Delete</button>
                             </form>
+
                         </div>
                     </div>
 

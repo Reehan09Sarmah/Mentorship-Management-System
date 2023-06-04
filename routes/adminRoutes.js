@@ -121,9 +121,17 @@ router.delete('/mentors/:mId/students/:sId', async (req, res) => {
 //to delete a mentor
 router.delete('/mentors/:id', async (req, res) => {
     const { id } = req.params
+    const mentor = await Mentor.findById(id)
+    let menteeList = []
+    menteeList.push(...mentor.mentees)
+    //when mentor gets deleted, you also remove the id stored in its mentees
+    menteeList.forEach(async (sid) => {
+        let std = await Student.findByIdAndUpdate(sid, { 'mentor': null })
+    })
     await Mentor.findByIdAndDelete(id)
-    req.flash('success', 'Successfully deleted Mentor')
+    req.flash('success', 'Mentor Successfully deleted')
     res.redirect('/mentorship/admin/mentors')
+
 })
 
 

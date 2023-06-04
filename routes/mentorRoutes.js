@@ -26,12 +26,8 @@ router.get('/mentees', async (req, res) => {
     const mentor = await Mentor.findById(id).populate('mentees')
     let studentFilter = [] //using this as we need a filter to filter accordingly
     let meetingFilter = []// to get the meetings details related with the mentor
-    for (let mentee of mentor.mentees) {
-        studentFilter.push(mentee)
-    }
-    for (let meeting of meetings) {
-        meetingFilter.push(meeting)
-    }
+    studentFilter.push(...mentor.mentees)
+    meetingFilter.push(...meetings)
     res.render('mentor/mentees', { studentFilter, meetingFilter, mentor, program })
 
 })
@@ -46,9 +42,8 @@ router.post('/mentees', async (req, res) => {
     let studentFilter = []
     const mentor = await Mentor.findById(id).populate('mentees')
     if (program == 'All') {
-        for (let mentee of mentor.mentees) {
-            studentFilter.push(mentee)
-        }
+        studentFilter.push(...mentor.mentees)
+
     }
     else {
         for (let mentee of mentor.mentees) {
@@ -58,9 +53,8 @@ router.post('/mentees', async (req, res) => {
         }
     }
 
-    for (let meeting of meetings) {
-        meetingFilter.push(meeting)
-    }
+    meetingFilter.push(...meetings)
+
 
 
     res.render('mentor/mentees', { studentFilter, meetingFilter, mentor, program })
