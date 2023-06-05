@@ -30,20 +30,30 @@ router.post('/students', async (req, res) => {
     const filter = req.body.filter
     const program = filter.program
     var studentFilter = null
-    if (filter.semester && filter.program) {
-        studentFilter = await Student.find({ 'currentSemester': filter.semester, 'program': filter.program })
-    }
-    else if (filter.semester && !filter.program) {
+    if (filter.semester && (filter.program == 'None')) {
         studentFilter = await Student.find({ 'currentSemester': filter.semester })
     }
-    else if (!filter.semester && filter.program) {
-        if (filter.program == 'All') {
-            studentFilter = await Student.find({})
-        }
-        else {
-            studentFilter = await Student.find({ 'program': filter.program })
-        }
+    else if (filter.semester && (filter.program == 'All')) {
+        studentFilter = await Student.find({ 'currentSemester': filter.semester })
     }
+
+    else if (!filter.semester && (filter.program == 'All')) {
+        studentFilter = await Student.find({})
+
+    }
+    else if (!filter.semester && (filter.program == 'None')) {
+        req.flash('error', 'Please select something')
+        res.redirect('/mentorship/admin/students')
+    }
+    else if (!filter.semester && filter.program) {
+        studentFilter = await Student.find({ 'program': filter.program })
+
+    }
+    else if (filter.semester && filter.program) {
+        studentFilter = await Student.find({ 'currentSemester': filter.semester, 'program': filter.program })
+
+    }
+
 
 
     res.render('admin/students', { studentFilter, filter, program })
@@ -56,11 +66,26 @@ router.get('/mentors/:id', async (req, res) => {
     res.render('admin/Mentor', { mentor })
 })
 
+//edit mentor details
+router.put('/mentor/:mentorid', async (req, res) => {
+    const { mentorid } = req.params
+    const mentorDetails = req.body.mentor
+    await Mentor.findByIdAndUpdate(mentorid, mentorDetails)
+    res.redirect(`/mentorship/admin/mentors/${mentorid}`)
+})
+
 //to check student details -- By Admin
 router.get('/students/:id', async (req, res) => {
     const { id } = req.params
     const student = await Student.findById(id)
     res.render('admin/student', { student })
+})
+//edit student details
+router.put('/students/:stdid', async (req, res) => {
+    const { stdid } = req.params
+    const studentDetails = req.body.student
+    await Student.findByIdAndUpdate(stdid, studentDetails)
+    res.redirect(`/mentorship/admin/students/${stdid}`)
 })
 
 //delete student from database

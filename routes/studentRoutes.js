@@ -16,6 +16,14 @@ router.get('/', async (req, res) => {
     res.render('student/studentHome', { student })
 })
 
+//edit details
+router.put('/', async (req, res) => {
+    const { id } = req.params
+    const details = req.body.student
+    await Student.findByIdAndUpdate(id, details)
+    res.redirect(`/mentorship/student/${id}`)
+})
+
 //Student's Mentor Details page
 router.get('/mentor', async (req, res) => {
     const { id } = req.params

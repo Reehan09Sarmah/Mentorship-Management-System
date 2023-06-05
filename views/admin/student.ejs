@@ -10,8 +10,8 @@
                     <h5 class="card-title">
                         <%= student.name %>
                     </h5>
-                    <p class="card-text">
-                        <%= student.rollno %>
+                    <p class="card-text lead">
+                        <%=student.department%> | <%= student.rollno %>
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -24,39 +24,121 @@
                     <li class="list-group-item text-muted">
                         Gsuite Id: <%=student.email%>
                     </li>
+                    <li class="list-group-item text-muted">
+                        CGPA: <%=student.cgpa%>
+                    </li>
                 </ul>
                 <div class="card-body">
-                    <a href="" class="card-link btn btn-info">Edit</a>
-                    <!-- Button trigger modal to delete -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#askDeleteStudent">
-                        Delete
-                    </button>
+                    <div> <!-- Button trigger modal to edit -->
+                        <button type="button" class="btn btn-warning btn-lg  m-2" data-bs-toggle="modal"
+                            data-bs-target="#studentDetails">
+                            Edit
+                        </button>
+                        <!-- Button trigger modal to delete -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#askDeleteStudent">
+                            Delete
+                        </button>
+                    </div>
+                    <!-- Modal To edit details -->
+                    <div class="modal fade" id="studentDetails" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="subjectName">
+                                        Edit Details
 
-                </div>
-                <!-- Modal to ask if sure to delete -->
-                <div class="modal fade" id="askDeleteStudent" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Delete <%=student.name%> data?</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to delete this data completely from database?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <form class="d-inline"
-                                    action="/mentorship/admin/students/<%=student._id%>?_method=DELETE" method="POST">
-                                    <button class="btn btn-danger">DELETE</button>
-                                </form>
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <!--Form to update data-->
+                                    <form action="/mentorship/admin/students/<%=student._id%>?_method=PUT" method="POST"
+                                        class="validated-form" novalidate>
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label lead">Name</label>
+                                            <input type="text" class="form-control" id="name" name="student[name]"
+                                                value="<%=student.name%>">
+                                            <div class="valid-feedback">Looks Good!</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label lead">Email</label>
+                                            <input type="email" class="form-control" id="email" name="student[email]"
+                                                value="<%=student.email%>">
+                                            <div class="valid-feedback">Looks Good!</div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="rollno" class="form-label lead">Roll Number</label>
+                                            <input type="text" class="form-control" id="rollno" name="student[rollno]"
+                                                value="<%=student.rollno%>">
+                                            <div class="valid-feedback">Looks Good!</div>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label for="dept" class="form-label lead">Department</label>
+                                            <input type="text" class="form-control" id="dept" name="student[department]"
+                                                value="<%=student.department%>">
+                                            <div class="valid-feedback">Looks Good!</div>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label for="cgpa" class="form-label lead">CGPA</label>
+                                            <input type="number" step="0.01" class="form-control" id="cgpa"
+                                                name="student[cgpa]" value="<%=student.cgpa%>">
+                                            <div class="valid-feedback">Looks Good!</div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="semester" class="form-label lead">Curent Semester</label>
+                                            <input type="number" class="form-control" id="semester"
+                                                name="student[currentSemester]" value="<%=student.currentSemester%>">
+                                            <div class="valid-feedback">Looks Good!</div>
+                                        </div>
+
+
+                                        <button type="submit" class="btn btn-success">Save
+                                            changes</button>
+
+                                    </form>
+                                    <!--Form ends-->
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal to ask if sure to delete -->
+                    <div class="modal fade" id="askDeleteStudent" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete <%=student.name%> data?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this data completely from database?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <form class="d-inline"
+                                        action="/mentorship/admin/students/<%=student._id%>?_method=DELETE"
+                                        method="POST">
+                                        <button class="btn btn-danger">DELETE</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
                 <a class="btn btn-warning" href="/mentorship/admin/students">Back to Students</a>
 
             </div>

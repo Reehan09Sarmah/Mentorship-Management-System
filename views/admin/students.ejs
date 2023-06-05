@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-6">
 
-            <% if(filter.program=='All' ){ %>
+            <% if(filter.program=='All' || filter.program=='None' ){ %>
                 <h2>Registered Students</h2>
                 <%}else { %>
                     <h2>Registered <%=program%> Students</h2>
@@ -16,7 +16,8 @@
                 <div class="d-flex">
                     <input type="number" class="form-control mb-3 mx-2" name="filter[semester]" placeholder="semester">
                     <select class="form-select mb-3" name="filter[program]" aria-label="select">
-                        <option value="All" selected>All</option>
+                        <option value="None" selected>None</option>
+                        <option value="All">All Program</option>
                         <option value="B.Tech">BTech</option>
                         <option value="M.Tech">M.Tech</option>
                         <option value="MCA">MCA</option>

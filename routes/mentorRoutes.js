@@ -17,6 +17,14 @@ router.get('/', async (req, res) => {
     const mentor = await Mentor.findById(id)
     res.render('mentor/mentorHome', { mentor })
 })
+//edit mentor details
+router.put('/', async (req, res) => {
+    const { id } = req.params
+    const details = req.body.mentor
+    await Mentor.findByIdAndUpdate(id, { 'name': details.name, 'email': details.email, 'department': details.department })
+    res.redirect(`/mentorship/mentor/${id}`)
+
+})
 
 //mentees of the mentor
 router.get('/mentees', async (req, res) => {

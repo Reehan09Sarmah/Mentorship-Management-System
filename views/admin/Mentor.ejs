@@ -12,26 +12,41 @@
                     <h5 class="card-title">
                         <%= mentor.name %>
                     </h5>
-                    <p class="card-text">
-                        Department : <b>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted">
+
+                            Department :
                             <%= mentor.department %>
-                        </b>
-                        <br>
-                        Email: <b>
+
+                        </li>
+                        <li class="list-group-item text-muted">
+                            Email:
                             <%= mentor.email %>
-                        </b>
-                    </p>
+
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    <a href="" class="card-link btn btn-warning">Edit</a>
-                    <a href="/mentorship/admin/mentors/<%=mentor._id%>/students"
-                        class="card-link btn btn-primary m-2">Add
-                        Mentees</a>
-                    <!-- Button trigger modal to delete -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#askDeleteMentor">
-                        Delete
-                    </button>
+
+
+                    <div>
+                        <!-- Button trigger modal to delete -->
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#askDeleteMentor">
+                            Delete
+                        </button>
+                        <!-- Button trigger modal to edit -->
+
+                        <button type="button" class="btn btn-warning btn-lg  m-2" data-bs-toggle="modal"
+                            data-bs-target="#mentorDetails">
+                            Edit
+                        </button>
+                        <a href="/mentorship/admin/mentors/<%=mentor._id%>/students"
+                            class="card-link btn btn-primary m-2">Add
+                            Mentees</a>
+                    </div>
+
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="askDeleteMentor" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -52,6 +67,52 @@
                                     method="POST">
                                     <button class="btn btn-danger">DELETE</button>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal To ask to delete-->
+                <div class="modal fade" id="mentorDetails" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="subjectName">
+                                    Edit Details
+
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!--Form to edit mentor details-->
+                                <form action="/mentorship/admin/mentor/<%=mentor._id%>?_method=PUT" method="POST"
+                                    class="validated-form" novalidate>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label lead">Name</label>
+                                        <input type="text" class="form-control" id="name" name="mentor[name]"
+                                            value="<%=mentor.name%>">
+                                        <div class="valid-feedback">Looks Good!</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label lead">Email</label>
+                                        <input type="email" class="form-control" name="mentor[email]" id="email"
+                                            value="<%=mentor.email%>">
+                                        <div class="valid-feedback">Looks Good!</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="dept" class="form-label lead">Department</label>
+                                        <input type="text" class="form-control" name="mentor[department]" id="dept"
+                                            value="<%=mentor.department%>">
+                                        <div class="valid-feedback">Looks Good!</div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success">Save
+                                        changes</button>
+
+                                </form>
+                                <!--Form ends-->
                             </div>
                         </div>
                     </div>
