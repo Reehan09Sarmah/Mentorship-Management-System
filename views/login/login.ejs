@@ -1,7 +1,7 @@
 <% layout('layouts/loginBoiler') %>
 
     <div class="col-6 col-md-6 col-lg-6  m-4 ">
-        <form action="/mentorship/loginMentor" method="POST" class="validated-form" novalidate>
+        <form action="/mentorship/login" method="POST" class="validated-form" novalidate>
             <div class="row m-2 p-2">
                 <div class="col-2 text-center">
                     <h4>Login </h4>
@@ -25,20 +25,22 @@
                 <label for="loginPass" class="form-label">Password</label>
                 <input type="password" class="form-control" name="login[password]" id="loginPass" required>
             </div>
-            <div class="valid-feedback">Looks Good!</div>
-            <button type="submit" class="btn btn-success mb-3">Sign In</button>
+            <%- include('../partials/flash.ejs') -%>
 
-            <div class="dropdown mb-3">
-                Not Registered?
-                <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Register As
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="/mentorship/regMentor">Mentor</a></li>
-                    <li><a class="dropdown-item" href="/mentorship/regStudent">Student</a></li>
-                </ul>
-            </div>
+                <div class="valid-feedback">Looks Good!</div>
+                <button type="submit" class="btn btn-success mb-3">Sign In</button>
+
+                <div class="dropdown mb-3">
+                    Not Registered?
+                    <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Register As
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="/mentorship/regMentor">Mentor</a></li>
+                        <li><a class="dropdown-item" href="/mentorship/regStudent">Student</a></li>
+                    </ul>
+                </div>
 
         </form>
     </div>

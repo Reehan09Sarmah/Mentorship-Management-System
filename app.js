@@ -117,6 +117,8 @@ const registerRoutes = require('./routes/registerRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const studentRoutes = require('./routes/studentRoutes')
 const mentorRoutes = require('./routes/mentorRoutes')
+const Student = require('./models/Student')
+const Mentor = require('./models/Mentor')
 
 
 
@@ -128,6 +130,44 @@ const mentorRoutes = require('./routes/mentorRoutes')
 app.get('/mentorship/login', (req, res) => {
     res.render('login/login')
 })
+
+//login to own site
+app.post('/mentorship/login', async (req, res) => {
+    const cred = req.body.login
+    console.log(cred);
+    let logintype = req.body.login.type
+    var login
+    //if student
+    if (logintype == 'Student') {
+        login = await Student.findOne({ 'email': cred.email })
+    }
+    //if a mentor
+    else if (logintype == 'Mentor') {
+        login = await Mentor.findOne({ 'email': cred.email })
+    }
+
+    //to check
+    if (login) {
+        if (login.password == cred.password) {
+            if (logintype == 'Student') {
+                res.redirect(`/mentorship/student/${login._id}`)
+            }
+            if (logintype == 'Mentor') {
+                res.redirect(`/mentorship/mentor/${login._id}`)
+            }
+        } else {
+            req.flash('error', 'Incorrect Password')
+            res.redirect('/mentorship/login')
+        }
+    }
+    else {
+        req.flash('error', 'Incorrect Email')
+        res.redirect('/mentorship/login')
+
+    }
+
+})
+
 
 
 //use routers --> route handlers are in Routes folder
